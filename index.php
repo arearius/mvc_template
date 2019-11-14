@@ -5,9 +5,11 @@ ini_set('log_errors', 1);
 session_start();
 include_once __DIR__ . '/autoload.php';
 
-$action = $_GET['action'] ?? 'TasksList';
-switch ($_GET['controller']) {
-    case 'AuthController' : $controller = new AuthController(); break;
-    default : $controller = new TasksController(); 
-}
+$action = $_GET['action'] ?? 'default';
+$controller = $_GET['controller'] ?? 'Application';
+
+$controller .= 'Controller';
+
+$App = new $controller();
+
 $controller->{$action}();
